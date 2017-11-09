@@ -11,12 +11,20 @@ import {HeroService} from '../hero.service';
 	templateUrl: './heroes.component.html'
 })
 export class HeroesComponent implements OnInit {
-	// region protected fields
+	// region public accessors
+	/**
+	 * Gets the heroes to display.
+	 * @returns {Hero[]}
+	 */
+	public get heroes(): Hero[] { return this._heroes; }
+	// endregion
+
+	// region private fields
 	/**
 	 * The heroes to display.
 	 * @type {Hero[]}
 	 */
-	protected heroes: Hero[];
+	private _heroes: Hero[];
 	// endregion
 
 	/**
@@ -39,7 +47,7 @@ export class HeroesComponent implements OnInit {
 	 * Gets the heroes to display.
 	 */
 	public getHeroes(): void {
-		this.heroService.getHeroes().subscribe((heroes: Hero[]) => this.heroes = heroes);
+		this.heroService.getHeroes().subscribe((heroes: Hero[]) => this._heroes = heroes);
 	}
 
 	/**
@@ -49,7 +57,7 @@ export class HeroesComponent implements OnInit {
 	public add(name: string): void {
 		name = name.trim();
 		if (!name) { return; }
-		this.heroService.addHero(new Hero(undefined, name)).subscribe((hero: Hero) => this.heroes.push(hero));
+		this.heroService.addHero(new Hero(undefined, name)).subscribe((hero: Hero) => this._heroes.push(hero));
 	}
 
 	/**
@@ -57,7 +65,7 @@ export class HeroesComponent implements OnInit {
 	 * @param {Hero} hero - The hero to delete.
 	 */
 	public remove(hero: Hero): void {
-		this.heroes = this.heroes.filter((h: Hero) => h !== hero);
+		this._heroes = this._heroes.filter((h: Hero) => h !== hero);
 		this.heroService.deleteHero(hero).subscribe();
 	}
 	// endregion

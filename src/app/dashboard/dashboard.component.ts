@@ -11,12 +11,12 @@ import {HeroService} from '../hero.service';
 	templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
-	// region protected fields
+	// region public accessors
 	/**
-	 * Dashboard heroes.
-	 * @type {Hero[]}
+	 * Gets the dashboard heroes.
+	 * @returns {Hero[]}
 	 */
-	protected heroes: Hero[] = [];
+	public get heroes(): Hero[] { return this._heroes; }
 	// endregion
 
 	// region private inputs
@@ -24,7 +24,15 @@ export class DashboardComponent implements OnInit {
 	 * Heroes display count.
 	 * @type {number}
 	 */
-	@Input() private displayCount: number = 5;
+	@Input('displayCount') private _displayCount: number = 5;
+	// endregion
+
+	// region private fields
+	/**
+	 * Dashboard heroes.
+	 * @type {Hero[]}
+	 */
+	private _heroes: Hero[] = [];
 	// endregion
 
 	/**
@@ -47,7 +55,7 @@ export class DashboardComponent implements OnInit {
 	 * Gets the heroes to display.
 	 */
 	public getHeroes(): void {
-		this.heroService.getHeroes().subscribe((heroes: Hero[]) => this.heroes = heroes.slice(1, this.displayCount));
+		this.heroService.getHeroes().subscribe((heroes: Hero[]) => this._heroes = heroes.slice(1, this._displayCount));
 	}
 	// endregion
 }

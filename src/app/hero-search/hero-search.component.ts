@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
 import {Subject} from 'rxjs/Subject';
@@ -14,20 +14,26 @@ import {HeroService} from '../hero.service';
 	templateUrl: './hero-search.component.html'
 })
 export class HeroSearchComponent implements OnInit {
-	// region protected fields
+	// region public accessors
 	/**
-	 * The heroes search results.
-	 * @type {Observable<Hero[]>}
+	 * Gets the heroes search results.
+	 * @returns {Observable<Hero[]>}
 	 */
-	protected heroes$: Observable<Hero[]>;
+	public get heroes$(): Observable<Hero[]> { return this._heroes$; }
 	// endregion
 
 	// region private fields
 	/**
+	 * The heroes search results.
+	 * @type {Observable<Hero[]>}
+	 */
+	private _heroes$: Observable<Hero[]>;
+
+	/**
 	 * The string to search.
 	 * @type {Subject<string>}
 	 */
-	private searchTerms: Subject<string> = new Subject<string>();
+	private _searchTerms: Subject<string> = new Subject<string>();
 	// endregion
 
 	// region private inputs
@@ -35,7 +41,7 @@ export class HeroSearchComponent implements OnInit {
 	 * The delay between to search requests.
 	 * @type {Subject<string>}
 	 */
-	private searchDelay: number = 300;
+	@Input('searchDelay') private _searchDelay: number = 300;
 	// endregion
 
 	/**
@@ -49,8 +55,8 @@ export class HeroSearchComponent implements OnInit {
 	 * Initialize the component.
 	 */
 	public ngOnInit(): void {
-		this.heroes$ = this.searchTerms.pipe(
-			debounceTime(this.searchDelay),
+		this._heroes$ = this._searchTerms.pipe(
+			debounceTime(this._searchDelay),
 			distinctUntilChanged(),
 			switchMap((term: string) => this.heroService.searchHeroes(term)),
 		);
@@ -63,7 +69,7 @@ export class HeroSearchComponent implements OnInit {
 	 * @param {string} term
 	 */
 	public search(term: string): void {
-		this.searchTerms.next(term);
+		this._searchTerms.next(term);
 	}
 	// endregion
 }
