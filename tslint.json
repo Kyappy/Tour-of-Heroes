@@ -1,4 +1,7 @@
 {
+	"extends": [
+		"tslint-eslint-rules"
+	],
 	"rulesDirectory": [
 		"node_modules/codelyzer"
 	],
@@ -169,7 +172,7 @@
 		"strict-type-predicates": true,
 		"switch-default": true,
 		"ordered-imports": true,
-		"prefer-function-over-method": [true, "allow-public", "allow-protected"],
+		"prefer-function-over-method": false,
 		"prefer-method-signature": true,
 		"one-variable-per-declaration": true,
 		"prefer-switch": [true, {"min-cases": 2}],
@@ -188,7 +191,7 @@
 		"quotemark": [true, "single"],
 		"radix": true,
 		"type-literal-delimiter": true,
-		"space-in-parens": [true, "always"],
+		"space-in-parens": [true, "never"],
 		"switch-final-break": true,
 		"semicolon": [true, "always"],
 		"space-before-function-paren": [true, "never"],
@@ -245,6 +248,51 @@
 		"use-view-encapsulation": true,
 		"angular-whitespace": [true, "check-interpolation"],
 		"import-destructing-spacing": true,
-		"pipe-naming": ["camelCase", ""]
+		"pipe-naming": ["camelCase", ""],
+		"no-constant-condition": true,
+		"no-control-regex": true,
+		"no-duplicate-case": true,
+		"no-empty-character-class": true,
+		"no-ex-assign": true,
+		"no-extra-boolean-cast": true,
+		"no-extra-semi": true,
+		"no-inner-declarations": true,
+		"no-invalid-regexp": true,
+		"ter-no-irregular-whitespace": true,
+		"no-regex-spaces": true,
+		"no-unexpected-multiline": true,
+		"valid-jsdoc": [true, {
+			"prefer": {
+				"return": "returns"
+			},
+			"requireReturn": true,
+			"requireParamDescription": true,
+			"requireReturnDescription": true,
+			"matchDescription": "^[A-Z][A-Za-z0-9\\s,`]*[.]$"
+		}],
+		"valid-typeof": true,
+		"no-multi-spaces": true,
+		"handle-callback-err": true,
+		"array-bracket-spacing": [true, "never"],
+		"block-spacing": [
+			true,
+			"always"
+		],
+		"brace-style": [
+			true,
+			"stroustrup",
+			{
+				"allowSingleLine": true
+			}
+		],
+		"ter-computed-property-spacing": true,
+		"ter-func-call-spacing": true,
+		"ter-indent": [true, "tab"],
+		"ter-max-len": [true, 140],
+		"object-curly-spacing": [
+			true,
+			"never"
+		],
+		"ter-no-tabs": true
 	}
 }
