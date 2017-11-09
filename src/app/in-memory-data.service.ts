@@ -1,8 +1,15 @@
 import {InMemoryDbService} from 'angular-in-memory-web-api';
 
+/**
+ * Data service for ajax tests.
+ */
 export class InMemoryDataService implements InMemoryDbService {
-	createDb() {
-		const heroes = [
+	/**
+	 * Creates the heroes local database.
+	 * @returns {Hero[]}
+	 */
+	public createDb(): {heroes: {id: number; name: string}[]} {
+		return {heroes: [
 			{id: 11, name: 'Mr. Nice'},
 			{id: 12, name: 'Narco'},
 			{id: 13, name: 'Bombasto'},
@@ -13,7 +20,6 @@ export class InMemoryDataService implements InMemoryDbService {
 			{id: 18, name: 'Dr IQ'},
 			{id: 19, name: 'Magma'},
 			{id: 20, name: 'Tornado'}
-		];
-		return {heroes};
+		]};
 	}
 }

@@ -1,36 +1,69 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import {Subject} from 'rxjs/Subject';
 import {debounceTime, distinctUntilChanged, switchMap} from 'rxjs/operators';
+import {Subject} from 'rxjs/Subject';
 import {Hero} from '../hero';
 import {HeroService} from '../hero.service';
 
+/**
+ * App hero search component.
+ */
 @Component({
 	selector: 'app-hero-search',
-	templateUrl: './hero-search.component.html',
-	styleUrls: ['./hero-search.component.css']
+	styleUrls: ['./hero-search.component.css'],
+	templateUrl: './hero-search.component.html'
 })
 export class HeroSearchComponent implements OnInit {
-	heroes$: Observable<Hero[]>;
-	private searchTerms = new Subject<string>();
+	// region protected fields
+	/**
+	 * The heroes search results.
+	 * @type {Observable<Hero[]>}
+	 */
+	protected heroes$: Observable<Hero[]>;
+	// endregion
 
-	constructor(private heroService: HeroService) {}
+	// region private fields
+	/**
+	 * The string to search.
+	 * @type {Subject<string>}
+	 */
+	private searchTerms: Subject<string> = new Subject<string>();
+	// endregion
 
-	// Push a search term into the observable stream.
-	search(term: string): void {
-		this.searchTerms.next(term);
-	}
+	// region private inputs
+	/**
+	 * The delay between to search requests.
+	 * @type {Subject<string>}
+	 */
+	private searchDelay: number = 300;
+	// endregion
 
-	ngOnInit(): void {
+	/**
+	 * Creates a new HeroSearchComponent instance.
+	 * @param {HeroService} heroService
+	 */
+	public constructor(private heroService: HeroService) {}
+
+	// region angular methods
+	/**
+	 * Initialize the component.
+	 */
+	public ngOnInit(): void {
 		this.heroes$ = this.searchTerms.pipe(
-			// wait 300ms after each keystroke before considering the term
-			debounceTime(300),
-
-			// ignore new term if same as previous term
+			debounceTime(this.searchDelay),
 			distinctUntilChanged(),
-
-			// switch to new search observable each time the term changes
 			switchMap((term: string) => this.heroService.searchHeroes(term)),
 		);
 	}
+	// endregion
+
+	// region public methods
+	/**
+	 * Pushes a search term into the observable stream.
+	 * @param {string} term
+	 */
+	public search(term: string): void {
+		this.searchTerms.next(term);
+	}
+	// endregion
 }

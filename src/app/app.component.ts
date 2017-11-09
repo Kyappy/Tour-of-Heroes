@@ -1,10 +1,19 @@
 import {Component} from '@angular/core';
 
+/**
+ * App component.
+ */
 @Component({
 	selector: 'app-root',
-	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css']
+	styleUrls: ['./app.component.css'],
+	templateUrl: './app.component.html'
 })
 export class AppComponent {
-	title = 'Tour of Heroes';
+	// region public properties
+	/**
+	 * The application title.
+	 * @type {string}
+	 */
+	public title: string = 'Tour of Heroes';
+	// endregion
 }
