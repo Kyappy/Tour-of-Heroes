@@ -176,9 +176,6 @@
 		"prefer-template": true,
 		"one-line": [
 			true,
-			"check-catch",
-			"check-finally",
-			"check-else",
 			"check-open-brace",
 			"check-whitespace"
 		],
@@ -223,27 +220,31 @@
 			"check-typecast",
 			"check-preblock"
 		],
-		"directive-selector": [
-			true,
-			"attribute",
-			"app",
-			"camelCase"
-		],
-		"component-selector": [
-			true,
-			"element",
-			"app",
-			"kebab-case"
-		],
+		"directive-selector": [true, "attribute", "app", "camelCase"],
+		"component-selector": [true, "element", "app", "kebab-case"],
 		"use-input-property-decorator": true,
 		"use-output-property-decorator": true,
 		"use-host-property-decorator": true,
 		"no-input-rename": true,
 		"no-output-rename": true,
 		"use-life-cycle-interface": true,
+		"use-pipe-decorator": true,
 		"use-pipe-transform-interface": true,
-		"component-class-suffix": true,
+		"component-class-suffix": [true, "Component", "View"],
 		"directive-class-suffix": true,
-		"invoke-injectable": true
+		"invoke-injectable": true,
+		"banana-in-box": true,
+		"no-access-missing-member": true,
+		"pipe-impurer": true,
+		"templates-no-negated-async": true,
+		"templates-use-public": true,
+		"template-to-ng-template": true,
+		"no-attribute-parameter-decorator": true,
+		"no-forward-ref": true,
+		"no-used-css": true,
+		"use-view-encapsulation": true,
+		"angular-whitespace": [true, "check-interpolation"],
+		"import-destructing-spacing": true,
+		"pipe-naming": ["camelCase", ""]
 	}
 }
