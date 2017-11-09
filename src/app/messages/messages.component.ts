@@ -11,8 +11,9 @@ import {MessageService} from '../message.service';
 })
 export class MessagesComponent {
 	/**
-	 * Creates a new MessagesComponent instance.
-	 * @param {MessageService} messageService
+	 * Creates a new HeroesComponent instance.
+	 * @param {MessageService} messageService The message service to inject
+	 * @returns {MessagesComponent} New message component instance.
 	 */
 	public constructor(public messageService: MessageService) {}
 }

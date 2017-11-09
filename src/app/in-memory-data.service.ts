@@ -6,7 +6,7 @@ import {InMemoryDbService} from 'angular-in-memory-web-api';
 export class InMemoryDataService implements InMemoryDbService {
 	/**
 	 * Creates the heroes local database.
-	 * @returns {Hero[]}
+	 * @returns {Hero[]} The heroes data.
 	 */
 	public createDb(): {heroes: {id: number; name: string}[]} {
 		return {heroes: [

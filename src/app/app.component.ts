@@ -9,11 +9,9 @@ import {Component} from '@angular/core';
 	templateUrl: './app.component.html'
 })
 export class AppComponent {
-	// region public properties
 	/**
 	 * The application title.
 	 * @type {string}
 	 */
 	public title: string = 'Tour of Heroes';
-	// endregion
 }

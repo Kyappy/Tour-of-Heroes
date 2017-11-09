@@ -11,40 +11,36 @@ import {HeroService} from '../hero.service';
 	templateUrl: './heroes.component.html'
 })
 export class HeroesComponent implements OnInit {
-	// region public accessors
 	/**
 	 * Gets the heroes to display.
 	 * @returns {Hero[]}
 	 */
 	public get heroes(): Hero[] { return this._heroes; }
-	// endregion
 
-	// region private fields
 	/**
 	 * The heroes to display.
 	 * @type {Hero[]}
 	 */
 	private _heroes: Hero[];
-	// endregion
 
 	/**
 	 * Creates a new HeroesComponent instance.
-	 * @param {HeroService} heroService
+	 * @param {HeroService} heroService The hero service to inject.
+	 * @returns {HeroesComponent} A new HeroesComponent instance.
 	 */
 	public constructor(private heroService: HeroService) {}
 
-	// region angular methods
 	/**
 	 * Initialize the component.
+	 * @returns {void}
 	 */
 	public ngOnInit(): void {
 		this.getHeroes();
 	}
-	// endregion
 
-	// region public methods
 	/**
 	 * Gets the heroes to display.
+	 * @returns {void}
 	 */
 	public getHeroes(): void {
 		this.heroService.getHeroes().subscribe((heroes: Hero[]) => this._heroes = heroes);
@@ -52,7 +48,8 @@ export class HeroesComponent implements OnInit {
 
 	/**
 	 * Adds a new hero.
-	 * @param {string} name - The name of the hero to add.
+	 * @param {string} name The name of the hero to add.
+	 * @returns {void}
 	 */
 	public add(name: string): void {
 		name = name.trim();
@@ -62,11 +59,11 @@ export class HeroesComponent implements OnInit {
 
 	/**
 	 * Deletes the given hero.
-	 * @param {Hero} hero - The hero to delete.
+	 * @param {Hero} hero The hero to delete.
+	 * @returns {void}
 	 */
 	public remove(hero: Hero): void {
 		this._heroes = this._heroes.filter((h: Hero) => h !== hero);
 		this.heroService.deleteHero(hero).subscribe();
 	}
-	// endregion
 }

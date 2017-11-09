@@ -5,11 +5,11 @@ describe('DashboardComponent', () => {
 	let component: DashboardComponent;
 	let fixture: ComponentFixture<DashboardComponent>;
 
-	beforeEach(async(() => {
+	beforeEach(async(() =>
 		TestBed.configureTestingModule({
-			declarations: [ DashboardComponent ]
-		}).compileComponents();
-	}));
+			declarations: [DashboardComponent]
+		}).compileComponents()
+	));
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(DashboardComponent);

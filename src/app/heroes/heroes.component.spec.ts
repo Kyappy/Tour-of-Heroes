@@ -5,11 +5,11 @@ describe('HeroesComponent', () => {
 	let component: HeroesComponent;
 	let fixture: ComponentFixture<HeroesComponent>;
 
-	beforeEach(async(() => {
+	beforeEach(async(() =>
 		TestBed.configureTestingModule({
-			declarations: [ HeroesComponent ]
-		}).compileComponents();
-	}));
+			declarations: [HeroesComponent]
+		}).compileComponents()
+	));
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(HeroesComponent);

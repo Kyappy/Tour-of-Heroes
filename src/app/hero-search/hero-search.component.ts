@@ -14,15 +14,12 @@ import {HeroService} from '../hero.service';
 	templateUrl: './hero-search.component.html'
 })
 export class HeroSearchComponent implements OnInit {
-	// region public accessors
 	/**
 	 * Gets the heroes search results.
 	 * @returns {Observable<Hero[]>}
 	 */
 	public get heroes$(): Observable<Hero[]> { return this._heroes$; }
-	// endregion
 
-	// region private fields
 	/**
 	 * The heroes search results.
 	 * @type {Observable<Hero[]>}
@@ -34,25 +31,23 @@ export class HeroSearchComponent implements OnInit {
 	 * @type {Subject<string>}
 	 */
 	private _searchTerms: Subject<string> = new Subject<string>();
-	// endregion
 
-	// region private inputs
 	/**
 	 * The delay between to search requests.
 	 * @type {Subject<string>}
 	 */
 	@Input('searchDelay') private _searchDelay: number = 300;
-	// endregion
 
 	/**
 	 * Creates a new HeroSearchComponent instance.
-	 * @param {HeroService} heroService
+	 * @param {HeroService} heroService The hero service to inject.
+	 * @returns {HeroSearchComponent} A new HeroSearchComponent instance.
 	 */
 	public constructor(private heroService: HeroService) {}
 
-	// region angular methods
 	/**
 	 * Initialize the component.
+	 * @returns {void}
 	 */
 	public ngOnInit(): void {
 		this._heroes$ = this._searchTerms.pipe(
@@ -61,15 +56,13 @@ export class HeroSearchComponent implements OnInit {
 			switchMap((term: string) => this.heroService.searchHeroes(term)),
 		);
 	}
-	// endregion
 
-	// region public methods
 	/**
 	 * Pushes a search term into the observable stream.
-	 * @param {string} term
+	 * @param {string} term The term to search
+	 * @returns {void}
 	 */
 	public search(term: string): void {
 		this._searchTerms.next(term);
 	}
-	// endregion
 }

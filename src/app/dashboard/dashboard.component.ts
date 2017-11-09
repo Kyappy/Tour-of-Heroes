@@ -11,51 +11,46 @@ import {HeroService} from '../hero.service';
 	templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
-	// region public accessors
 	/**
 	 * Gets the dashboard heroes.
 	 * @returns {Hero[]}
 	 */
 	public get heroes(): Hero[] { return this._heroes; }
-	// endregion
 
-	// region private inputs
 	/**
 	 * Heroes display count.
 	 * @type {number}
+	 * @private
 	 */
 	@Input('displayCount') private _displayCount: number = 5;
-	// endregion
 
-	// region private fields
 	/**
 	 * Dashboard heroes.
 	 * @type {Hero[]}
+	 * @private
 	 */
 	private _heroes: Hero[] = [];
-	// endregion
 
 	/**
 	 * Creates a new DashboardComponent instance.
-	 * @param {HeroService} heroService
+	 * @param {HeroService} heroService The hero service to inject.
+	 * @returns {DashboardComponent} A new DashboardComponent instance.
 	 */
 	public constructor(private heroService: HeroService) {}
 
-	// region angular methods
 	/**
 	 * Initializes the component.
+	 * @returns {void}
 	 */
 	public ngOnInit(): void {
 		this.getHeroes();
 	}
-	// endregion
 
-	// region public methods
 	/**
 	 * Gets the heroes to display.
+	 * @returns {void}
 	 */
 	public getHeroes(): void {
 		this.heroService.getHeroes().subscribe((heroes: Hero[]) => this._heroes = heroes.slice(1, this._displayCount));
 	}
-	// endregion
 }

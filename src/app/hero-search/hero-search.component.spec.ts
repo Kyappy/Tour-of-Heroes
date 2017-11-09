@@ -5,11 +5,11 @@ describe('HeroSearchComponent', () => {
 	let component: HeroSearchComponent;
 	let fixture: ComponentFixture<HeroSearchComponent>;
 
-	beforeEach(async(() => {
+	beforeEach(async(() =>
 		TestBed.configureTestingModule({
-			declarations: [ HeroSearchComponent ]
-		}).compileComponents();
-	}));
+			declarations: [HeroSearchComponent]
+		}).compileComponents()
+	));
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(HeroSearchComponent);

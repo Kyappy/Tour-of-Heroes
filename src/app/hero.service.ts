@@ -10,14 +10,13 @@ import {MessageService} from './message.service';
  * Http request options configuration.
  * @type {{headers: HttpHeaders}}
  */
-const httpOptions: {headers: HttpHeaders} = {headers: new HttpHeaders({ 'Content-Type': 'application/json' })};
+const httpOptions: {headers: HttpHeaders} = {headers: new HttpHeaders({'Content-Type': 'application/json'})};
 
 /**
  * Hero service.
  */
 @Injectable()
 export class HeroService {
-	// region private fields
 	/**
 	 * URL to web api.
 	 * @type {string}
@@ -29,19 +28,18 @@ export class HeroService {
 	 * @type {string}
 	 */
 	private logPrefix: string = 'HeroService: ';
-	// endregion
 
 	/**
 	 * Creates a new Hero service instance.
-	 * @param {HttpClient} http
-	 * @param {MessageService} messageService
+	 * @param {HttpClient} http The http client to inject.
+	 * @param {MessageService} messageService The message service to inject.
+	 * @returns {HeroService} A new HeroService instance.
 	 */
 	public constructor(private http: HttpClient, private messageService: MessageService) {}
 
-	// region public methods
 	/**
 	 * Gets heroes from the server.
-	 * @returns {Observable<Hero[]>}
+	 * @returns {Observable<Hero[]>} The heros found.
 	 */
 	public getHeroes(): Observable<Hero[]> {
 		return this.http.get<Hero[]>(this.heroesUrl)
@@ -49,9 +47,9 @@ export class HeroService {
 	}
 
 	/**
-	 * Gets hero by id. Return `undefined` when id not found
-	 * @param {number} id - The id of the hero to get.
-	 * @returns {Observable<Hero>}
+	 * Gets hero by id, returns `undefined` when id not found.
+	 * @param {number} id The id of the hero to get.
+	 * @returns {Observable<Hero>} The hero found.
 	 */
 	public getHeroNo404<Data>(id: number): Observable<Hero> {
 		return this.http.get<Hero[]>(`${this.heroesUrl}/?id=${id}`)
@@ -62,9 +60,9 @@ export class HeroService {
 	}
 
 	/**
-	 * Gets the hero by id. Will 404 if id not found.
-	 * @param {number} id - The id of the hero to get.
-	 * @returns {Observable<Hero>}
+	 * Gets the hero by id, will 404 if id not found.
+	 * @param {number} id The id of the hero to get.
+	 * @returns {Observable<Hero>} The hero found.
 	 */
 	public getHero(id: number): Observable<Hero> {
 		return this.http.get<Hero>(`${this.heroesUrl}/${id}`).pipe(
@@ -75,8 +73,8 @@ export class HeroService {
 
 	/**
 	 * Gets heroes whose name contains search term.
-	 * @param {string} term - The search term.
-	 * @returns {Observable<Hero[]>}
+	 * @param {string} term The search term.
+	 * @returns {Observable<Hero[]>} The heroes matching the search term.
 	 */
 	public searchHeroes(term: string): Observable<Hero[]> {
 		if (!term.trim()) return of([]);
@@ -89,8 +87,8 @@ export class HeroService {
 
 	/**
 	 * Adds a new hero to the server.
-	 * @param {Hero} hero - The hero to add.
-	 * @returns {Observable<Hero>}
+	 * @param {Hero} hero The hero to add.
+	 * @returns {Observable<Hero>} The updated heroes observable.
 	 */
 	public addHero(hero: Hero): Observable<Hero> {
 		return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
@@ -101,8 +99,8 @@ export class HeroService {
 
 	/**
 	 * Deletes the hero from the server.
-	 * @param {Hero | number} hero - The hero to delete.
-	 * @returns {Observable<Hero>}
+	 * @param {Hero | number} hero The hero to delete.
+	 * @returns {Observable<Hero>} The update heroes observable.
 	 */
 	public deleteHero(hero: Hero | number): Observable<Hero> {
 		const id: number = typeof hero === 'number' ? hero : hero.id;
@@ -115,8 +113,8 @@ export class HeroService {
 
 	/**
 	 * Updates the hero on the server.
-	 * @param {Hero} hero - The hero to update.
-	 * @returns {Observable<any>}
+	 * @param {Hero} hero The hero to update.
+	 * @returns {Observable<any>} The updated hero observable.
 	 */
 	public updateHero(hero: Hero): Observable<any> {
 		return this.http.put(this.heroesUrl, hero, httpOptions).pipe(
@@ -124,16 +122,14 @@ export class HeroService {
 			catchError(this.handleError<any>('updateHero'))
 		);
 	}
-	// endregion
 
-	// region private methods
 	/**
-	 * Handle Http operation that failed. Let the app continue.
-	 * @param {string} operation - name of the operation that failed
-	 * @param {T} result - optional value to return as the observable result
-	 * @returns {(error: any) => Observable<T>}
+	 * Handle Http operation that failed, let the app continue.
+	 * @param {string} operation name of the operation that failed.
+	 * @param {T} result optional value to return as the observable result.
+	 * @returns {callback} The errors found.
 	 */
-	private handleError<T>(operation: string = 'operation', result?: T): (errpr: any) => Observable<T> {
+	private handleError<T>(operation: string = 'operation', result?: T): (error: any) => Observable<T> {
 		return (error: any): Observable<T> => {
 			// TODO: send the error to remote logging infrastructure
 			// console.error(error); // Log to console instead
@@ -145,11 +141,11 @@ export class HeroService {
 	}
 
 	/**
-	 * Logs a HeroService message with the MessageService
-	 * @param {string} message - The message to log.
+	 * Logs a HeroService message with the MessageService.
+	 * @param {string} message The message to log.
+	 * @returns {void}
 	 */
 	private log(message: string): void {
 		this.messageService.add(this.logPrefix + message);
 	}
-	// endregion
 }
