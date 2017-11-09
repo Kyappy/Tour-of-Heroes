@@ -1,0 +1,22 @@
+{
+	"compileOnSave": false,
+	"compilerOptions": {
+		"outDir": "../dist/out-tsc",
+		"sourceMap": true,
+		"declaration": false,
+//		"declaration": true,
+		"moduleResolution": "node",
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"target": "es5",
+
+		"module": "commonjs",
+		"noImplicitAny": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"paths": {"*": ["../../node_workbench/*"]},
+//		"baseUrl": "",
+
+		"typeRoots": ["../../node_modules/@types"],
+		"lib": ["es2017", "dom"]
+	}
+}

@@ -1,8 +1,8 @@
 import {Location} from '@angular/common';
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Hero} from '../hero';
-import {HeroService} from '../hero.service';
+import {HeroService} from '../../services/hero.service';
+import {Hero} from '../../supports/hero';
 
 /**
  * Hero detail component.
