@@ -56,7 +56,7 @@
 			true,
 			"check-space",
 			"check-uppercase",
-			{"ignore-words": ["region", "endregion", "console", "import"]}
+			{"ignore-words": ["region", "endregion", "console", "import", "todo"]}
 		],
 		"curly": [true, "ignore-same-line"],
 		"eofline": false,
@@ -77,7 +77,7 @@
 		"interface-over-type-literal": true,
 		"match-default-export-name": true,
 		"no-default-export": true,
-		"newline-before-return": true,
+		"newline-before-return": false,
 		"new-parens": true,
 		"no-redundant-jsdoc": true,
 		"no-consecutive-blank-lines": [true, 2],
@@ -89,7 +89,7 @@
 		"no-require-imports": true,
 		"no-boolean-literal-compare": true,
 		"label-position": true,
-		"max-line-length": [true, 140],
+		"max-line-length": [true, 200],
 		"member-access": [true, "check-accessor", "check-constructor", "check-parameter-property"],
 		"member-ordering": [
 			true,
@@ -105,10 +105,10 @@
 					"protected-constructor",
 					"private-constructor",
 					"public-static-method",
-					"protected-static-method",
-					"private-static-method",
 					"public-instance-method",
+					"protected-static-method",
 					"protected-instance-method",
+					"private-static-method",
 					"private-instance-method"
 				]
 			}
@@ -132,13 +132,13 @@
 		"no-invalid-template-strings": true,
 		"no-invalid-this": true,
 		"no-misused-new": true,
-		"no-null-keyword": true,
+		"no-null-keyword": false,
 		"no-object-literal-type-assertion": true,
 		"no-return-await": true,
 		"no-non-null-assertion": true,
 		"no-shadowed-variable": true,
 		"no-sparse-arrays": true,
-		"no-string-literal": true,
+		"no-string-literal": false,
 		"no-submodule-imports": [
 			true,
 			"rxjs",
@@ -288,7 +288,7 @@
 		"ter-computed-property-spacing": true,
 		"ter-func-call-spacing": true,
 		"ter-indent": [true, "tab"],
-		"ter-max-len": [true, 140],
+		"ter-max-len": [true, 200],
 		"object-curly-spacing": [
 			true,
 			"never"
