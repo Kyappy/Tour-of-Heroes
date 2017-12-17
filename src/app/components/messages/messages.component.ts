@@ -12,7 +12,7 @@ import {MessageService} from '../../services/message.service';
 export class MessagesComponent {
 	/**
 	 * Creates a new HeroesComponent instance.
-	 * @param {MessageService} messageService The message service to inject
+	 * @param {MessageService} messageService: The message service to inject
 	 * @returns {MessagesComponent} New message component instance.
 	 */
 	public constructor(public messageService: MessageService) {}

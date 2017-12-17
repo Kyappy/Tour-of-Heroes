@@ -5,12 +5,15 @@ import {Injectable} from '@angular/core';
  */
 @Injectable()
 export class MessageService {
+	// region public fields
 	/**
 	 * The message stack.
 	 * @type {Array}
 	 */
 	public messages: string[] = [];
+	// endregion
 
+	// region public methods
 	/**
 	 * Adds a message to the messages stack.
 	 * @param {string} message The message to display.
@@ -27,4 +30,5 @@ export class MessageService {
 	public clear(): void {
 		this.messages.length = 0;
 	}
+	// endregion
 }
