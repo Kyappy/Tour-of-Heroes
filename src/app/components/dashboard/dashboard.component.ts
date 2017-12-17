@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Hero} from '../../models/hero';
 import {HeroService} from '../../services/hero.service';
-import {Hero} from '../../supports/hero';
 
 /**
  * Dashboard component.
@@ -11,16 +11,18 @@ import {Hero} from '../../supports/hero';
 	templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
+	// region public fields
 	/**
 	 * Gets the dashboard heroes.
 	 * @returns {Hero[]}
 	 */
 	public get heroes(): Hero[] { return this._heroes; }
+	// endregion
 
+	// region private fields
 	/**
 	 * Heroes display count.
 	 * @type {number}
-	 * @private
 	 */
 	@Input('displayCount') private _displayCount: number = 5;
 
@@ -30,6 +32,7 @@ export class DashboardComponent implements OnInit {
 	 * @private
 	 */
 	private _heroes: Hero[] = [];
+	// endregion
 
 	/**
 	 * Creates a new DashboardComponent instance.
@@ -38,6 +41,7 @@ export class DashboardComponent implements OnInit {
 	 */
 	public constructor(private heroService: HeroService) {}
 
+	// region angular life cycle
 	/**
 	 * Initializes the component.
 	 * @returns {void}
@@ -45,12 +49,15 @@ export class DashboardComponent implements OnInit {
 	public ngOnInit(): void {
 		this.getHeroes();
 	}
+	// endregion
 
+	// region public methods
 	/**
 	 * Gets the heroes to display.
 	 * @returns {void}
 	 */
 	public getHeroes(): void {
-		this.heroService.getHeroes().subscribe((heroes: Hero[]) => this._heroes = heroes.slice(1, this._displayCount));
+		this.heroService.getAll().subscribe((heroes: Hero[]) => this._heroes = heroes.slice(1, this._displayCount));
 	}
+	// endregion
 }
