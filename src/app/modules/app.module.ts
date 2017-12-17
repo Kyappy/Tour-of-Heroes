@@ -9,9 +9,13 @@ import {HeroDetailComponent} from '../components/hero-detail/hero-detail.compone
 import {HeroSearchComponent} from '../components/hero-search/hero-search.component';
 import {HeroesComponent} from '../components/heroes/heroes.component';
 import {MessagesComponent} from '../components/messages/messages.component';
+import {BatchService} from '../services/batch.service';
+import {CRUDService} from '../services/crud.service';
 import {HeroService} from '../services/hero.service';
 import {InMemoryDataService} from '../services/in-memory-data.service';
 import {MessageService} from '../services/message.service';
+import {RoutesService} from '../services/routes.service';
+import {SearchService} from '../services/search.service';
 import {AppRoutingModule} from './app-routing.module';
 
 /**
@@ -33,7 +37,7 @@ import {AppRoutingModule} from './app-routing.module';
 		MessagesComponent,
 		HeroSearchComponent
 	],
-	providers: [HeroService, MessageService],
+	providers: [HeroService, MessageService, CRUDService, SearchService, BatchService, RoutesService],
 	bootstrap: [AppComponent]
 })
 export class AppModule {}
