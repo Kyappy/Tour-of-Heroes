@@ -2,7 +2,7 @@ import {Location} from '@angular/common';
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {HeroService} from '../../services/hero.service';
-import {Hero} from '../../supports/hero';
+import {Hero} from '../../models/hero';
 
 /**
  * Hero detail component.
@@ -13,10 +13,12 @@ import {Hero} from '../../supports/hero';
 	templateUrl: './hero-detail.component.html'
 })
 export class HeroDetailComponent implements OnInit {
+	// region protected fields
 	/**
 	 * The hero to display.
 	 */
 	@Input() protected hero: Hero;
+	// endregion
 
 	/**
 	 * Creates a new HeroDetailComponent instance.
@@ -27,6 +29,7 @@ export class HeroDetailComponent implements OnInit {
 	 */
 	public constructor(private route: ActivatedRoute, private heroService: HeroService, private location: Location) {}
 
+	// region angular life cycle
 	/**
 	 * Initialize the component.
 	 * @returns {void}
@@ -34,14 +37,16 @@ export class HeroDetailComponent implements OnInit {
 	public ngOnInit(): void {
 		this.getHero();
 	}
+	// endregion
 
+	// region public methods
 	/**
 	 * Gets the hero to display.
 	 * @returns {void}
 	 */
 	public getHero(): void {
 		const id: number = +this.route.snapshot.paramMap.get('id');
-		this.heroService.getHero(id).subscribe((hero: Hero) => this.hero = hero);
+		this.heroService.get(id).subscribe((hero: Hero) => this.hero = hero);
 	}
 
 	/**
@@ -57,6 +62,7 @@ export class HeroDetailComponent implements OnInit {
 	 * @returns {void}
 	 */
 	public save(): void {
-		this.heroService.updateHero(this.hero).subscribe(() => this.goBack());
+		this.heroService.put(this.hero).subscribe(() => this.goBack());
 	}
+	// endregion
 }
