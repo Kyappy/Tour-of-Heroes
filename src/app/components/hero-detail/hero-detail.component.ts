@@ -1,8 +1,9 @@
 import {Location} from '@angular/common';
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Hero} from '../../models/hero';
 import {HeroService} from '../../services/hero.service';
+import {Subscription} from 'rxjs/Subscription';
 
 /**
  * Hero detail component.
@@ -12,12 +13,24 @@ import {HeroService} from '../../services/hero.service';
 	styleUrls: ['./hero-detail.component.css'],
 	templateUrl: './hero-detail.component.html'
 })
-export class HeroDetailComponent implements OnInit {
-	// region protected fields
+export class HeroDetailComponent implements OnInit, OnDestroy {
+	// region public fields
 	/**
 	 * The hero to display.
 	 */
-	@Input() protected hero: Hero;
+	@Input() public hero: Hero;
+	// endregion
+
+	// region private fields
+	/**
+	 * Subscription for get hero observable.
+	 */
+	private _getSubscription: Subscription;
+
+	/**
+	 * Subscription for put hero observable.
+	 */
+	private _putSubscription: Subscription;
 	// endregion
 
 	/**
@@ -37,6 +50,15 @@ export class HeroDetailComponent implements OnInit {
 	public ngOnInit(): void {
 		this.getHero();
 	}
+
+	/**
+	 * Destroys the component.
+	 * @returns {void}
+	 */
+	public ngOnDestroy(): void {
+		this._getSubscription.unsubscribe();
+		this._putSubscription.unsubscribe();
+	}
 	// endregion
 
 	// region public methods
@@ -46,7 +68,7 @@ export class HeroDetailComponent implements OnInit {
 	 */
 	public getHero(): void {
 		const id: number = +this.route.snapshot.paramMap.get('id');
-		this.heroService.get(id).subscribe((hero: Hero) => this.hero = hero);
+		this._getSubscription = this.heroService.get(id).subscribe((hero: Hero) => this.hero = hero);
 	}
 
 	/**
@@ -62,7 +84,7 @@ export class HeroDetailComponent implements OnInit {
 	 * @returns {void}
 	 */
 	public save(): void {
-		this.heroService.put(this.hero).subscribe(() => this.goBack());
+		this._getSubscription = this.heroService.put(this.hero).subscribe(() => this.goBack());
 	}
 	// endregion
 }

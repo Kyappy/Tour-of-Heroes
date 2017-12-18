@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Hero} from '../../models/hero';
 import {HeroService} from '../../services/hero.service';
+import {Subscription} from 'rxjs/Subscription';
 
 /**
  * Dashboard component.
@@ -10,13 +11,20 @@ import {HeroService} from '../../services/hero.service';
 	styleUrls: ['./dashboard.component.css'],
 	templateUrl: './dashboard.component.html',
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 	// region public fields
 	/**
 	 * Gets the dashboard heroes.
 	 * @returns {Hero[]}
 	 */
 	public get heroes(): Hero[] { return this._heroes; }
+	// endregion
+
+	// region private fields
+	/**
+	 * Subscription for all heroes observable.
+	 */
+	private _getAllSubscription: Subscription;
 	// endregion
 
 	// region private fields
@@ -41,13 +49,21 @@ export class DashboardComponent implements OnInit {
 	 */
 	public constructor(private heroService: HeroService) {}
 
-	// region angular life cycle
+	// region angular lifecycle
 	/**
 	 * Initializes the component.
 	 * @returns {void}
 	 */
 	public ngOnInit(): void {
 		this.getHeroes();
+	}
+
+	/**
+	 * Destroys the component.
+	 * @returns {void}
+	 */
+	public ngOnDestroy(): void {
+		this._getAllSubscription.unsubscribe();
 	}
 	// endregion
 
@@ -57,7 +73,7 @@ export class DashboardComponent implements OnInit {
 	 * @returns {void}
 	 */
 	public getHeroes(): void {
-		this.heroService.getAll().subscribe((heroes: Hero[]) => this._heroes = heroes.slice(1, this._displayCount));
+		this._getAllSubscription = this.heroService.getAll().subscribe((heroes: Hero[]) => this._heroes = heroes.slice(1, this._displayCount));
 	}
 	// endregion
 }

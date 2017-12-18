@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HeroService} from '../../services/hero.service';
 import {Hero} from '../../models/hero';
+import {Subscription} from 'rxjs/Subscription';
 
 /**
  * App heroes component.
@@ -10,7 +11,7 @@ import {Hero} from '../../models/hero';
 	styleUrls: ['./heroes.component.css'],
 	templateUrl: './heroes.component.html'
 })
-export class HeroesComponent implements OnInit {
+export class HeroesComponent implements OnInit, OnDestroy {
 	// region public getters
 	/**
 	 * Gets the heroes to display.
@@ -25,6 +26,21 @@ export class HeroesComponent implements OnInit {
 	 * @type {Hero[]}
 	 */
 	private _heroes: Hero[];
+
+	/**
+	 * Subscription for all heroes observable.
+	 */
+	private _getAllSubscription: Subscription;
+
+	/**
+	 * Subscription for post hero observable.
+	 */
+	private _postSubscription: Subscription;
+
+	/**
+	 * Subscription for destroy hero observable.
+	 */
+	private _deleteSubscription: Subscription;
 	// endregion
 
 	/**
@@ -42,6 +58,16 @@ export class HeroesComponent implements OnInit {
 	public ngOnInit(): void {
 		this.getHeroes();
 	}
+
+	/**
+	 * Destroys the component.
+	 * @returns {void}
+	 */
+	public ngOnDestroy(): void {
+		this._getAllSubscription.unsubscribe();
+		this._postSubscription.unsubscribe();
+		this._deleteSubscription.unsubscribe();
+	}
 	// endregion
 
 	/**
@@ -49,7 +75,7 @@ export class HeroesComponent implements OnInit {
 	 * @returns {void}
 	 */
 	public getHeroes(): void {
-		this.heroService.getAll().subscribe((heroes: Hero[]) => this._heroes = heroes);
+		this._getAllSubscription = this.heroService.getAll().subscribe((heroes: Hero[]) => this._heroes = heroes);
 	}
 
 	// region public methods
@@ -61,7 +87,7 @@ export class HeroesComponent implements OnInit {
 	public add(name: string): void {
 		name = name.trim();
 		if (!name) { return; }
-		this.heroService.post(new Hero(undefined, name)).subscribe((hero: Hero) => this._heroes.push(hero));
+		this._postSubscription = this.heroService.post(new Hero(undefined, name)).subscribe((hero: Hero) => this._heroes.push(hero));
 	}
 
 	/**
@@ -71,7 +97,7 @@ export class HeroesComponent implements OnInit {
 	 */
 	public remove(hero: Hero): void {
 		this._heroes = this._heroes.filter((h: Hero) => h !== hero);
-		this.heroService.delete(hero).subscribe();
+		this._deleteSubscription = this.heroService.delete(hero).subscribe();
 	}
 	// endregion
 }
